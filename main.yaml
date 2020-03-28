@@ -1,0 +1,18 @@
+---
+- hosts: localhost
+  become: true
+  connection: local
+  any_errors_fatal: true
+  gather_facts: false
+
+  pre_tasks:
+# Check for unattended-upgrades
+#    - name: Wait for automatic system updates to complete
+#      shell: while pgrep unattended; do sleep 10; done;
+
+
+  tasks:
+    - import_tasks: packages.yaml
+
+    - name: Mark completion of a playbook
+      shell: touch /tmp/ansible_done

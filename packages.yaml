@@ -1,12 +1,50 @@
 - name: add Atom PPA
   apt_repository:
     repo: ppa:webupd8team/atom
+    update_cache: no
 
-- name: Update apt cache if needed.
-  apt: update_cache=yes cache_valid_time=3600
+- name: add telegram PPA
+  apt_repository:
+    repo: ppa:atareao/telegram
+    update_cache: no
+
+- name: add brave apt key
+  shell: curl -s https://brave-browser-apt-release.s3.brave.com/brave-core.asc | sudo apt-key --keyring /etc/apt/trusted.gpg.d/brave-browser-release.gpg add -
+
+- name: add brave apt list
+  shell: echo "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ bionic main" > /etc/apt/sources.list.d/brave-browser-release-bionic.list
+
+- name: add signal apt key
+  shell: curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+
+- name: add signal apt list
+  shell: echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+
+- name: add telegram apt list
+  shell: echo "deb http://ppa.launchpad.net/atareao/telegram/ubuntu bionic main" | sudo tee -a /etc/apt/sources.list.d/telegram-bionic.list
+
+- name: Remove broken apt list file for webupd8 ppa
+  file:
+    state: absent
+    path: "/etc/apt/sources.list.d/ppa_webupd8team_atom_tricia.list"
+
+- name: Remove broken apt list file for atareao ppa
+  file:
+    state: absent
+    path: "/etc/apt/sources.list.d/ppa_atareao_telegram_tricia.list"
+
+- name: add docker repo keyring
+  shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+- name: add docker repo
+  shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+
+- name: update apt cache (shell)
+  shell: apt-get update
 
 - name: Install packages.
-  apt: name={{ item }} state=present
+  become: true
+  apt: name={{ item }} state=present update_cache=no
   with_items:
     - mc
     - unzip
@@ -23,6 +61,17 @@
     - libpam-ccreds
     - libpam-cap
     - atom
+    - leafpad
+    - brave-browser
+    - chromium-browser
+    - kile
+    - keepassx
+    - build-essential
+    - mplayer
+    - vlc
+    - docker-ce
+    - telegram
+    - signal-desktop
 
 - name: Install Docker Python library.
   pip: name={{ item }} state=present

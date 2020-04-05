@@ -18,10 +18,19 @@
   shell: curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
 
 - name: add signal apt list
-  shell: echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+  shell: echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" > /etc/apt/sources.list.d/signal-xenial.list
 
 - name: add telegram apt list
-  shell: echo "deb http://ppa.launchpad.net/atareao/telegram/ubuntu bionic main" | sudo tee -a /etc/apt/sources.list.d/telegram-bionic.list
+  shell: echo "deb http://ppa.launchpad.net/atareao/telegram/ubuntu bionic main" > /etc/apt/sources.list.d/telegram-bionic.list
+
+- name: add virtualbox key1
+  shell: wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+
+- name: add virtualbox key2
+  shell: wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+
+- name: add virtualbox apt list
+  shell: echo "deb [arch=amd64] https://download.virtualbox.org/virtualbox/debian bionic contrib" > /etc/apt/sources.list.d/virtualbox-bionic.list
 
 - name: Remove broken apt list file for webupd8 ppa
   file:
@@ -38,6 +47,12 @@
 
 - name: add docker repo
   shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+
+- name: add vagrant apt key
+  shell: apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key AD319E0F7CFFA38B4D9F6E55CE3F3DE92099F7A4 D2BABDFD63EA9ECAB4E09C7228A873EA3C7C705F
+
+- name: add vagrant repo
+  shell: add-apt-repository "deb https://vagrant-deb.linestarve.com/ any main"
 
 - name: update apt cache (shell)
   shell: apt-get update
@@ -72,6 +87,14 @@
     - docker-ce
     - telegram
     - signal-desktop
+    - deluge-gtk
+    - deluge
+    - gliv
+    - virtualbox-6.1
+    - vagrant
+    - debconf-utils
+  
+
 
 - name: Install Docker Python library.
   pip: name={{ item }} state=present

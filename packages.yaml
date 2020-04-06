@@ -2,6 +2,7 @@
   apt_repository:
     repo: ppa:webupd8team/atom
     update_cache: no
+    codename: 'bionic'
 
 - name: add telegram PPA
   apt_repository:
@@ -94,7 +95,7 @@
     - vagrant
     - debconf-utils
     - adb
-  
+
 
 
 - name: Install Docker Python library.

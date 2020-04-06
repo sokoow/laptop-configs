@@ -93,6 +93,7 @@
     - virtualbox-6.1
     - vagrant
     - debconf-utils
+    - adb
   
 
 

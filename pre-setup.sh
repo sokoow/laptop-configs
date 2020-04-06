@@ -1,7 +1,7 @@
 #!/bin/bash
 
 sudo apt-get update --allow-releaseinfo-change
-sudo apt-get install -y mc git vim python-pip python apt-transport-https aptitude ntpdate software-properties-common ca-certificates curl
+sudo apt-get install -y mc git vim python-pip python apt-transport-https aptitude ntpdate software-properties-common ca-certificates curl build-essential
 
 sudo ntpdate time.task.gda.pl
 

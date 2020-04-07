@@ -13,7 +13,7 @@ sudo pip install ansible python-apt
 cd /tmp
 git clone https://github.com/sokoow/laptop-configs.git
 cd laptop-configs
-git checkout tags/0.3.2 -b eoan-0.1
+git checkout tags/0.3.3 -b eoan-0.1
 
 rm /dev/shm
 mkdir /dev/shm

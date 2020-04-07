@@ -77,7 +77,6 @@
     - libpam-ccreds
     - libpam-cap
     - atom
-    - leafpad
     - brave-browser
     - chromium-browser
     - kile
@@ -91,7 +90,6 @@
     - deluge-gtk
     - deluge
     - gliv
-    - virtualbox-6.1
     - vagrant
     - debconf-utils
     - adb
@@ -101,5 +99,4 @@
 - name: Install Docker Python library.
   pip: name={{ item }} state=present
   with_items:
-    - docker
     - yq

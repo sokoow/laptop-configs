@@ -78,8 +78,6 @@
     - libpam-cap
     - atom
     - brave-browser
-    - chromium-browser
-    - kile
     - keepassx
     - build-essential
     - mplayer
@@ -93,8 +91,6 @@
     - vagrant
     - debconf-utils
     - adb
-
-
 
 - name: Install Docker Python library.
   pip: name={{ item }} state=present
